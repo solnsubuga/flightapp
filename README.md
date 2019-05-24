@@ -1,6 +1,7 @@
 # Flight application API
 
 An application that allows users to book flights and pay for the tickets.
+[![Coverage Status](https://coveralls.io/repos/github/solnsubuga/flightapp/badge.svg?branch=develop)](https://coveralls.io/github/solnsubuga/flightapp?branch=develop)
 
 ## Dependancies
 
