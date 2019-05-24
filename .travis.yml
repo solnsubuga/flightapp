@@ -1,0 +1,27 @@
+language: python
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+#create database
+before_script:
+  - psql -c 'create database flightapp;' -U postgres
+  - psql -c "create user flightuser  with password 'qwerty';" -U postgres
+
+# install requirements
+install:
+  - pip install -r requirements.txt
+
+script:
+  - coverage run --source='.' ./manage.py test
+  - coverage report
+
+after_script:
+  - coveralls
