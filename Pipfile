@@ -8,12 +8,15 @@ pylint = "*"
 autopep8 = "*"
 coverage = "*"
 coveralls = "*"
+django-autofixture = "*"
+faker = "*"
 
 [packages]
 django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 python-decouple = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.6"
