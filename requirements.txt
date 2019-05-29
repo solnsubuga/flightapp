@@ -2,5 +2,8 @@ coverage==4.5.3
 coveralls==1.7.0
 Django==2.2.1
 djangorestframework==3.9.4
+django-autofixture==0.12.1
+django-extensions==2.1.7
+Faker==1.0.7
 psycopg2-binary==2.8.2
 python-decouple==3.1
