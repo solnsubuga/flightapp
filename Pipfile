@@ -17,6 +17,7 @@ psycopg2-binary = "*"
 python-decouple = "*"
 django-extensions = "*"
 django = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.6"
