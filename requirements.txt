@@ -1,6 +1,6 @@
 coverage==4.5.3
 coveralls==1.7.0
-Django==2.2.1
+Django==2.2.2
 djangorestframework==3.9.4
 django-autofixture==0.12.1
 django-extensions==2.1.7

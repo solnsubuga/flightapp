@@ -12,11 +12,11 @@ django-autofixture = "*"
 faker = "*"
 
 [packages]
-django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 python-decouple = "*"
 django-extensions = "*"
+django = "*"
 
 [requires]
 python_version = "3.6"
