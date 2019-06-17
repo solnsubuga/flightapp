@@ -1,13 +1,14 @@
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
+from faker import Faker
 
 from authentication.models import User
 from authentication.serializers import SignUpSerializer
-from faker import Faker
+from authentication.identity import IdentityManager
 
 
-class SignUpAPIView(APITestCase):
+class SignUpAPIViewTestCase(APITestCase):
     '''Test Module for signing up a user'''
     # pylint: disable=E1101
 
@@ -28,7 +29,7 @@ class SignUpAPIView(APITestCase):
         user = User.objects.filter(username=username).first()
         serializer = SignUpSerializer(user)
         self.assertEqual(response.data, serializer.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_signup_with_already_used_email(self):
         email = self.faker.email()
@@ -50,7 +51,7 @@ class SignUpAPIView(APITestCase):
         response = self.client.post(self.url, {
             'user': {
                 'username': self.faker.word(),
-                'email': self.faker.email().strip('.com'),
+                'email': 'test@',
                 'password': self.faker.password()
             }
         })
@@ -68,3 +69,42 @@ class SignUpAPIView(APITestCase):
                          response.data['errors']['email'][0])
         self.assertEqual('This field is required.',
                          response.data['errors']['password'][0])
+
+
+class SignInAPIViewTestCase(APITestCase):
+    ''' Test module for signing a user '''
+    # pylint: disable=E1101
+
+    def setUp(self):
+        self.url = reverse('auth:signin')
+        self.faker = Faker()
+        self.username = self.faker.word()
+        self.password = self.faker.password()
+        self.user = User.objects.create_user(
+            username=self.username, password=self.password)
+
+    def test_user_can_signin(self):
+        response = self.client.post(
+            self.url, {'username': self.username, 'password': self.password})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(response, 'token')
+
+    def test_valid_token_is_returned(self):
+        response = self.client.post(
+            self.url, {'username': self.username, 'password': self.password})
+        token = response.data.get('token')
+        manager = IdentityManager()
+        user_details = manager.decode(token)
+        self.assertEqual(self.user.pk, user_details['id'])
+        self.assertEqual(self.user.username, user_details['username'])
+
+    def test_user_signin_fails_with_wrong_credentials(self):
+        response = self.client.post(
+            self.url, {'username': 'wrong', 'password': 'wrong'})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual('Wrong username or password', response.data['detail'])
+
+    def dropDown(self):
+        user = User.objects.filter(username=self.username).first()
+        if user:
+            user.delete()

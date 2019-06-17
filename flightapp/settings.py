@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'NON_FIELD_ERRORS_KEY': 'detail',
+    'NON_FIELD_ERRORS_KEY': 'message',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'authentication.backends.JWTAuthentication',
     ),
@@ -129,3 +129,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TOKEN_EXPIRATION_TIME = 360000
+TOKEN_ISSUER = 'https://demo-flightapp.io'  # This is fictional token issuer

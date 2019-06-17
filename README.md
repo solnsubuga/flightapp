@@ -37,8 +37,8 @@ In order to run the API Application
 
 | EndPoint                              | Method | Description             |
 | ------------------------------------- | ------ | ----------------------- |
-| `/auth/signup`                        | POST   | Register a user         |
-| `/auth/signin`                        | POST   | Login a user            |
+| `/api/auth/signup`                    | POST   | Register a user         |
+| `/api/auth/signin`                    | POST   | Login a user            |
 | `/api/v1/flights/`                    | GET    | Get flights             |
 | `/api/v1/flight/<flight_id>/`         | GET    | Get a specific flight   |
 | `/api/v1/flight/<flight_id>/book/`    | POST   | Book a flight           |
