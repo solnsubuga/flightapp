@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     # thirdparty apps
     'django_extensions',
+    'rest_framework',
 
     'authentication.apps.AuthenticationConfig',
 ]
@@ -99,6 +100,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'NON_FIELD_ERRORS_KEY': 'detail',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'authentication.backends.JWTAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'flightapp.exceptions.core_exception_handler',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}
 
 
 # Internationalization

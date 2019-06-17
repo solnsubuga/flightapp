@@ -13,7 +13,6 @@ services:
 #create database
 before_script:
   - psql -c 'create database flightapp;' -U postgres
-  - psql -c "create user flightuser  with password 'qwerty';" -U postgres
 
 # install requirements
 install:
