@@ -10,17 +10,11 @@ python:
 services:
   - postgresql
 
-#create database
-before_script:
-  - psql -c 'create database flightapp;' -U postgres
-  - psql -c "create user flightuser  with password 'qwerty';" -U postgres
-
 # install requirements
 install:
   - pip install -r requirements.txt
 
 script:
-  - ./manage.py migrate
   - coverage run --source='.' ./manage.py test
   - coverage report
 
