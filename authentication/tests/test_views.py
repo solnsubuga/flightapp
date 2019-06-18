@@ -19,11 +19,9 @@ class SignUpAPIViewTestCase(APITestCase):
     def test_signup_user(self):
         username = self.faker.word()
         response = self.client.post(self.url, {
-            'user': {
-                'username': username,
-                'email': self.faker.email(),
-                'password': self.faker.password()
-            }
+            'username': username,
+            'email': self.faker.email(),
+            'password': self.faker.password()
         })
 
         user = User.objects.filter(username=username).first()
@@ -37,11 +35,9 @@ class SignUpAPIViewTestCase(APITestCase):
             self.faker.word(), email, self.faker.password())
 
         response = self.client.post(self.url, {
-            'user': {
-                'username': self.faker.word(),
-                'email': email,
-                'password': self.faker.password()
-            }
+            'username': self.faker.word(),
+            'email': email,
+            'password': self.faker.password()
         })
         self.assertEqual('Email already in use',
                          response.data['errors']['email'][0])
@@ -49,11 +45,10 @@ class SignUpAPIViewTestCase(APITestCase):
 
     def test_signup_with_invalid_email(self):
         response = self.client.post(self.url, {
-            'user': {
-                'username': self.faker.word(),
-                'email': 'test@',
-                'password': self.faker.password()
-            }
+            'username': self.faker.word(),
+            'email': 'test@',
+            'password': self.faker.password()
+
         })
         self.assertEqual('Enter a valid email address.',
                          response.data['errors']['email'][0])
