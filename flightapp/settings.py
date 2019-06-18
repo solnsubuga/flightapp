@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     # thirdparty apps
     'django_extensions',
     'rest_framework',
+    # 'rest_framework_swagger',
+    'drf_yasg',
 
     'authentication.apps.AuthenticationConfig',
 ]
@@ -47,6 +49,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
 
 ROOT_URLCONF = 'flightapp.urls'
 
