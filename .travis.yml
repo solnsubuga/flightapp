@@ -20,7 +20,7 @@ install:
 
 script:
   - ./manage.py migrate
-  - coverage run --omit="*/test*" --source='.' ./manage.py test
+  - coverage run --source='.' ./manage.py test
   - coverage report
 
 after_script:

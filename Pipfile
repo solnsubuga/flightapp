@@ -19,6 +19,9 @@ django-extensions = "*"
 django = "*"
 pyjwt = "*"
 drf-yasg = "*"
+dj-database-url = "*"
+gunicorn = "*"
+whitenoise = "==3.3.1"
 
 [requires]
 python_version = "3.6"
