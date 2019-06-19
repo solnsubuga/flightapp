@@ -10,6 +10,7 @@ class Profile(models.Model):
     passport_number = models.CharField(max_length=200, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     citizenship = models.CharField(max_length=200, blank=True, null=True)
+    passport_photo = models.ImageField(upload_to='flights',  blank=True)
 
     def __repr__(self):
         '''General string representation of a profile '''

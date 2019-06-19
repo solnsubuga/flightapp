@@ -6,4 +6,6 @@ omit = */envs/*
        */test*.py
        */manage.py
        */wsgi.py
+       */heroku.py
+       */dev.py
        */migrations/*

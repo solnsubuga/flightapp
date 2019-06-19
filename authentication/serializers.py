@@ -7,6 +7,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 
 from authentication.identity import IdentityManager
+from authentication.models import Profile
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -70,3 +71,32 @@ class SignInSerializer(serializers.Serializer):
                 'token': token
             }
         raise AuthenticationFailed('Wrong username or password', 401)
+
+
+class FlightPassengerSerializer(serializers.Serializer):
+    passport_photo = serializers.FileField()
+    passport_number = serializers.CharField()
+    birth_date = serializers.DateField()
+    citizenship = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.EmailField()
+
+    def create(self, validated_data):
+        user = validated_data.get('user')
+        for key, value in validated_data.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            elif hasattr(user.profile, key):
+                setattr(user.profile, key, value)
+        user.save()
+        user.refresh_from_db()
+        return {
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'passport_photo': user.profile.passport_photo,
+            'passport_number': user.profile.passport_number,
+            'birth_date': user.profile.birth_date,
+            'citizenship': user.profile.citizenship,
+        }
