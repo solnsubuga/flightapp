@@ -6,6 +6,7 @@ from faker import Faker
 from authentication.models import User
 from authentication.serializers import SignUpSerializer
 from authentication.identity import IdentityManager
+from flightapp.tests.base_test import BaseTestCase
 
 
 class SignUpAPIViewTestCase(APITestCase):
@@ -103,3 +104,48 @@ class SignInAPIViewTestCase(APITestCase):
         user = User.objects.filter(username=self.username).first()
         if user:
             user.delete()
+
+
+class RetrieveUpdateFlightPassengerViewTestCase(BaseTestCase):
+    # pylint: disable=E1101
+    def setUp(self):
+        super().setUp()
+        self.url = reverse('profile')
+        self.data = {
+            'first_name': self.faker.word(),
+            'passport_number': self.faker.word(),
+            'field': ''
+        }
+
+    def test_get_user_profile(self):
+        response = self.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['first_name'], self.user.first_name)
+        self.assertEqual(response.data['email'], self.user.email)
+
+    def test_user_edit_profile(self):
+        response = self.patch(self.url, self.data)
+        self.user.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['first_name'], self.user.first_name)
+        self.assertEqual(
+            response.data['passport_number'], self.user.profile.passport_number)
+
+    def test_non_existent_user_get_profile(self):
+        manager = IdentityManager()
+        token = manager.encode({'id': 0}, 36000)
+        self.client.credentials(
+            HTTP_AUTHORIZATION='Bearer {token}'.format(token=token))
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_empty_field_edit_profile(self):
+        response = self.patch(self.url, {
+            'email': '',
+            'passport_number': ''
+        })
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual('This field may not be blank.',
+                         response.data['errors']['email'][0])
+        self.assertEqual('This field may not be blank.',
+                         response.data['errors']['passport_number'][0])

@@ -8,6 +8,8 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from authentication.views import RetrieveUpdateFlightPassengerView
+
 
 def home(request):
     return redirect('api-docs')
@@ -27,7 +29,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-
     # documentation
     path('api/docs/', schema_view.with_ui('swagger',
                                           cache_timeout=0), name='api-docs'),
@@ -35,4 +36,5 @@ urlpatterns = [
 
     # authentication
     path('api/auth/', include('authentication.urls', namespace='auth')),
+    path('api/profile/', RetrieveUpdateFlightPassengerView.as_view(), name='profile')
 ]
