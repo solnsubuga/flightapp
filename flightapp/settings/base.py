@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     'authentication.apps.AuthenticationConfig',
+    'flights.apps.FlightsConfig',
 ]
 
 MIDDLEWARE = [
