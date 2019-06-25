@@ -62,3 +62,24 @@ class ReserveFlightAPIViewTestCase(BaseTestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data['reservations'] >= 0)
+
+
+class CheckFlightStatusAPIViewTestCase(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+        self.flight = AutoFixture(Flight).create(1)[0]
+        self.url = reverse('flights:status',
+                           kwargs={'flight_number': self.flight.number})
+
+    def test_check_flight_status(self):
+        response = self.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['status'], self.flight.status)
+
+    def test_check_non_existent_flight_status(self):
+        number = 'TEST01'
+        response = self.get(
+            reverse('flights:status', kwargs={'flight_number': number}))
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(
+            response.data['detail'], 'Flight with number {number} is not found'.format(number=number))
