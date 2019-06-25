@@ -8,4 +8,5 @@ omit = */envs/*
        */wsgi.py
        */heroku.py
        */dev.py
+       */celery.py
        */migrations/*

@@ -148,3 +148,12 @@ STATIC_URL = '/static/'
 
 TOKEN_EXPIRATION_TIME = 360000
 TOKEN_ISSUER = 'https://demo-flightapp.io'  # This is fictional token issuer
+
+
+# CELERY STUFF
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'
+BROKER_URL = config('REDIS_URL')
+CELERY_RESULT_BACKEND = config('REDIS_URL')
