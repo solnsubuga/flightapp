@@ -6,7 +6,7 @@ from faker import Faker
 from authentication.models import User
 from authentication.serializers import SignUpSerializer
 from authentication.identity import IdentityManager
-from flightapp.tests.base_test import BaseTestCase
+from tests.base_test import BaseTestCase
 
 
 class SignUpAPIViewTestCase(APITestCase):

@@ -36,5 +36,6 @@ urlpatterns = [
 
     # authentication
     path('api/auth/', include('authentication.urls', namespace='auth')),
-    path('api/profile/', RetrieveUpdateFlightPassengerView.as_view(), name='profile')
+    path('api/profile/', RetrieveUpdateFlightPassengerView.as_view(), name='profile'),
+    path('api/flights/', include('flights.urls', namespace='flights')),
 ]
