@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Flight(models.Model):
@@ -12,10 +13,22 @@ class Flight(models.Model):
     number = models.CharField(max_length=10)
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
-    duration = models.DurationField()
     origin = models.CharField(max_length=150)
     destination = models.CharField(max_length=150)
     status = models.CharField(choices=STATUSES, max_length=100)
+
+    @property
+    def duration(self):
+        timespan = self.arrival_time - self.departure_time
+        days, seconds = timespan.days, timespan.seconds
+        return days * 24 + seconds // 3600  # return hours
+
+    @property
+    def available_seats(self):
+        return self.seats.filter(is_available=True).all()
+
+    def __str__(self):
+        return self.number
 
 
 class Seat(models.Model):
@@ -24,13 +37,12 @@ class Seat(models.Model):
     number = models.CharField(max_length=50)
     is_available = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.number
 
-class Ticket(models.Model):
-    TICKET_CLASSES = (
-        ('ECONOMY', 'ECONOMY'),
-        ('BUSINESS', 'BUSINESS'),
-        ('FIRST', 'FIRST'),
-    )
+
+class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
-    ticket_class = models.CharField(max_length=100, choices=TICKET_CLASSES)
+    created = models.DateTimeField(auto_now_add=True)

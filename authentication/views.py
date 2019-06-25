@@ -6,12 +6,13 @@ from rest_framework.response import Response
 from rest_framework import generics, exceptions
 
 from authentication.serializers import (
-    SignUpSerializer, SignInSerializer, FlightPassengerSerializer)
+    SignUpSerializer, SignInSerializer, ProfileSerializer)
 from authentication.renderers import UserJsonRender
 from drf_yasg.utils import swagger_auto_schema
 
 
 class SignUpView(APIView):
+
     serializer_class = SignUpSerializer
     permission_classes = (AllowAny, )
     renderer_classes = (UserJsonRender, )
@@ -50,7 +51,7 @@ class SignInView(APIView):
 
 class RetrieveUpdateFlightPassengerView(generics.RetrieveUpdateAPIView):
     '''Get/Edit user profile '''
-    serializer_class = FlightPassengerSerializer
+    serializer_class = ProfileSerializer
     permission_classes = (IsAuthenticated, )
 
     def get_object(self):

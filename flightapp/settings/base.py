@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     # 'rest_framework_swagger',
     'drf_yasg',
 
-    'authentication.apps.AuthenticationConfig',
     'flights.apps.FlightsConfig',
+    'authentication.apps.AuthenticationConfig',
+
 ]
 
 MIDDLEWARE = [

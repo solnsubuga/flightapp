@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from authentication.models import Profile
 
 
-class TestModelsTestCase(TestCase):
+class AuthenticationModelsTestCase(TestCase):
     def setUp(self):
         self.first_name = 'test'
         self.username = 'test'

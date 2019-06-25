@@ -73,7 +73,7 @@ class SignInSerializer(serializers.Serializer):
         raise AuthenticationFailed('Wrong username or password', 401)
 
 
-class FlightPassengerSerializer(serializers.Serializer):
+class ProfileSerializer(serializers.Serializer):
     passport_photo = serializers.FileField()
     passport_number = serializers.CharField()
     birth_date = serializers.DateField()
