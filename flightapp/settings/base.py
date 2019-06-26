@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     # 'rest_framework_swagger',
     'drf_yasg',
 
-    'flights.apps.FlightsConfig',
+    'flights',
     'authentication.apps.AuthenticationConfig',
 
 ]
@@ -157,3 +157,12 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Africa/Nairobi'
 BROKER_URL = config('REDIS_URL')
 CELERY_RESULT_BACKEND = config('REDIS_URL')
+
+
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True  # Set to false if not using TLS
+DEFAULT_FROM_EMAIL = 'support@flightapp.io'
+EMAIL_SUBJECT = 'Flight App Notification'
