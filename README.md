@@ -26,6 +26,11 @@ In order to run the API Application
         DB_PORT=5432
         DEBUG=True
         ALLOWED_HOSTS=.localhost
+        REDIS_URL=your-url-for-redis
+        EMAIL_HOST=smtp.gmail.com
+        EMAIL_PORT=587
+        EMAIL_HOST_USER=your-email-host-username
+        EMAIL_HOST_PASSWORD=your-email-host-password
 
     ```
 

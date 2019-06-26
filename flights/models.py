@@ -45,4 +45,5 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
+    is_notified = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)

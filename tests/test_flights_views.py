@@ -3,7 +3,7 @@ from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
 from faker import Faker
 from autofixture import AutoFixture
-from django.utils import timezone
+from datetime import datetime
 
 from flights.models import Flight, Seat
 from tests.base_test import BaseTestCase
@@ -58,7 +58,7 @@ class ReserveFlightAPIViewTestCase(BaseTestCase):
         self.reserve_flight()
         response = self.post(reverse('flights:reservations_count'), {
             'flight_number': self.flight.number,
-            'date': timezone.now().date()
+            'date': datetime.now().date()
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data['reservations'] >= 0)

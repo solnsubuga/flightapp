@@ -9,4 +9,5 @@ omit = */envs/*
        */heroku.py
        */dev.py
        */celery.py
+       */tasks.py
        */migrations/*
