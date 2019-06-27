@@ -25,7 +25,7 @@ class Flight(models.Model):
 
     @property
     def available_seats(self):
-        return self.seats.filter(is_available=True).all()
+        return self.seats.all()
 
     def __str__(self):
         return self.number

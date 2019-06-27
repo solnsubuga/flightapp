@@ -88,9 +88,6 @@ class FlightReservationSerializer(serializers.ModelSerializer):
         if not seat:
             raise serializers.ValidationError(
                 'Seat with number: {seat_number} does not exist'.format(seat_number=seat_number))
-        elif not seat.is_available:
-            raise serializers.ValidationError(
-                'Seat with number: {seat_number} is not available'.format(seat_number=seat_number))
         return seat_number
 
     def create(self, validated_data):

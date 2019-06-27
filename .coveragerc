@@ -10,4 +10,5 @@ omit = */envs/*
        */dev.py
        */celery.py
        */tasks.py
+       */locustfile.py
        */migrations/*
